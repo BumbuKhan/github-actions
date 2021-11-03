@@ -47,6 +47,10 @@ jobs:
       - name: listing
         run: ls -la
 
+      - name: listing node_modules
+        run: ls -la ./node_modules
+
+
       - name: Test
         run: yarn run test
 
