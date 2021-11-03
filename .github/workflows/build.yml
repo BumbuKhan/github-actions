@@ -18,11 +18,14 @@ jobs:
       - name: Install packages
         run: yarn install
 
+      - name: Zipping node_modules folder
+        run: zip -r node_modules.zip node_modules
+
       - name: Uploading node_modules folder as an artifact
         uses: actions/upload-artifact@v2
         with:
           name: node-modules-artifact
-          path: node_modules
+          path: node_modules.zip
 
   lint:
     name: Test
@@ -37,6 +40,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-modules-artifact
+
+      - name: Unzipping node_modules.zip
+        run: unzip node_modules.zip -d .
 
       - name: Test
         run: yarn run test
@@ -55,6 +61,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-modules-artifact
+
+      - name: Unzipping node_modules.zip
+        run: unzip node_modules.zip -d .
 
       - name: Build project
         run: yarn build
