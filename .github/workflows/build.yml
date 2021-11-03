@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-modules-artifact
-          path: node_modules.zip
+          path: ./node_modules.zip
 
   lint:
     name: Test
@@ -42,7 +42,7 @@ jobs:
           name: node-modules-artifact
 
       - name: Unzipping node_modules.zip
-        run: unzip node_modules.zip -d node_modules
+        run: unzip node_modules.zip -d .
 
       - name: Test
         run: yarn run test
@@ -63,7 +63,7 @@ jobs:
           name: node-modules-artifact
 
       - name: Unzipping node_modules.zip
-        run: unzip node_modules.zip -d node_modules
+        run: unzip node_modules.zip -d .
 
       - name: Build project
         run: yarn build
