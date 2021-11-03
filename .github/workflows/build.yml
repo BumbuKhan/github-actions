@@ -44,6 +44,9 @@ jobs:
       - name: Unzipping node_modules.zip
         run: unzip node_modules.zip -d .
 
+      - name: listing
+        run: ls -la
+
       - name: Test
         run: yarn run test
 
