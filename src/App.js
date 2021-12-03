@@ -7,7 +7,7 @@ function App(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={props.callFunction}>Break the world</button>
+        <button onClick={() => props.callFunction()}>Break the world</button>
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
