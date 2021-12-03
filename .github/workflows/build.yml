@@ -56,7 +56,7 @@ jobs:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
-          fetch-depth: 0
+          ignore_empty: true
           environment: production
           sourcemaps: './build'
           version: 'v1.0.1'
