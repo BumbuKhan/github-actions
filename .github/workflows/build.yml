@@ -3,12 +3,21 @@ name: Build
 on: push
 
 jobs:
+  # one run
+  one_run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.0
+        with:
+          access_token: ${{ secrets.GITHUB_TOKEN }}
+
   install_dependencies:
     name: Installing dependencies
+    needs: one_run
     runs-on: ubuntu-20.04
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Setup NodeJS v14
         uses: actions/setup-node@v2
@@ -16,8 +25,14 @@ jobs:
           node-version: '14'
           cache: 'yarn'
 
-      - name: Install packages
-        run: yarn install
+      - uses: actions/cache@v2.1.4
+        id: cache
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/yarn-lock') }}
+
+      - run: npm ci
+        if: steps.cache.outputs.cache-hit != 'true'
 
   build:
     name: Build project
@@ -25,8 +40,7 @@ jobs:
     needs:
       - install_dependencies
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Setup NodeJS v14
         uses: actions/setup-node@v2
@@ -34,26 +48,19 @@ jobs:
           node-version: '14'
           cache: 'yarn'
 
-      - name: Install packages
-        run: yarn install
+      - name: List folder
+        run: ls -la
+
+      - uses: actions/cache@v2.1.4
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: List folder again
+        run: ls -la
 
       - name: Build project
         run: yarn build
-
-      - name: List the files
-        run: ls -la
-
-      - name: List the files inside the build folder
-        run: cd ./build && ls -la
-
-      - name: Caching build folder
-        uses: actions/cache@v1
-        with:
-          path: build
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
 
   create_sentry_release:
     name: Creating Sentry release
