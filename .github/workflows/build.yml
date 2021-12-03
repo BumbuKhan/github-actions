@@ -5,32 +5,34 @@ on: push
 jobs:
   install_dependencies:
     name: Installing dependencies
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
+      - name: Setup NodeJS v14
+        uses: actions/setup-node@v2
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          node-version: '14'
+          cache: 'yarn'
 
       - name: Install packages
         run: yarn install
 
   build:
     name: Build project
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - install_dependencies
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
+      - name: Setup NodeJS v14
+        uses: actions/setup-node@v2
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          node-version: '14'
+          cache: 'yarn'
 
       - name: Install packages
         run: yarn install
@@ -40,7 +42,7 @@ jobs:
 
   upload_map_files_to_sentry:
     name: Upload .map files to Sentry
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - build
     steps:
