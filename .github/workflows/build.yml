@@ -43,8 +43,11 @@ jobs:
       - name: Caching build folder
         uses: actions/cache@v2
         with:
-          path: './build'
-          key: ${{ runner.os }}-build-folder-${{ hashFiles('**/yarn.lock') }}
+          path: build
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
   create_sentry_release:
     name: Creating Sentry release
@@ -58,8 +61,8 @@ jobs:
       - name: Restoring cached build folder
         uses: actions/cache@v2
         with:
-          path: './build'
-          key: ${{ runner.os }}-build-folder-${{ hashFiles('**/yarn.lock') }}
+          path: build
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
 
       - name: Create Sentry release
         uses: getsentry/action-release@v1
