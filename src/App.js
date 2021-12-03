@@ -7,7 +7,7 @@ function App(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={() => props.callFunctionThatInstDefined()}>Break the world</button>
+        <button onClick={() => props.callFunctionThatInstDefined()}>Click to send an error to Sentry</button>
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
