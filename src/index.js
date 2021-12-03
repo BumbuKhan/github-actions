@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
 Sentry.init({
-    release: "1.3",
+    release: "1.4",
     dsn: "https://beeec1430c6241ce8f83aff855a458da@o1083339.ingest.sentry.io/6092995",
     integrations: [new Integrations.BrowserTracing()],
 
