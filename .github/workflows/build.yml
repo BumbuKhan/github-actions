@@ -40,11 +40,19 @@ jobs:
       - name: Build project
         run: yarn build
 
-  upload_map_files_to_sentry:
-    name: Upload .map files to Sentry
+  create_sentry_release:
+    name: Creating Sentry release
     runs-on: ubuntu-20.04
     needs:
       - build
     steps:
-      - name: Install Sentry CLI
-        run: yarn add @sentry/cli
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: production
+          sourcemaps: './build'
+          version: 'v1.0.1'
