@@ -40,6 +40,12 @@ jobs:
       - name: Build project
         run: yarn build
 
+      - name: Caching build folder
+        uses: actions/cache@v2
+        with:
+          path: './build'
+          key: ${{ runner.os }}-build-folder-${{ hashFiles('**/yarn.lock') }}
+
   create_sentry_release:
     name: Creating Sentry release
     runs-on: ubuntu-20.04
@@ -48,6 +54,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Restoring cached build folder
+        uses: actions/cache@v2
+        with:
+          path: './build'
+          key: ${{ runner.os }}-build-folder-${{ hashFiles('**/yarn.lock') }}
 
       - name: Create Sentry release
         uses: getsentry/action-release@v1
