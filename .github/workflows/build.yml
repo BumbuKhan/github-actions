@@ -58,5 +58,5 @@ jobs:
         with:
           ignore_empty: true
           environment: production
-          sourcemaps: './build'
+          sourcemaps: './build/static/js'
           version: 'v1.0.1'
