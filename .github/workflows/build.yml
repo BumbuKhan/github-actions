@@ -43,6 +43,9 @@ jobs:
       - name: List the files
         run: ls -la
 
+      - name: List the files inside the build folder
+        run: cd ./build && ls -la
+
       - name: Caching build folder
         uses: actions/cache@v1
         with:
