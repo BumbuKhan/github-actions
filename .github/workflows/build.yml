@@ -13,6 +13,7 @@ jobs:
 
   install_dependencies:
     name: Installing dependencies
+    needs: one_run
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
