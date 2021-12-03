@@ -1,5 +1,6 @@
 {
   "name": "test-app",
+  "homepage": "https://bumbukhan.github.io/github-actions",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
