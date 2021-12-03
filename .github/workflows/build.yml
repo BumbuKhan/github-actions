@@ -40,10 +40,13 @@ jobs:
       - name: Build project
         run: yarn build
 
+      - name: List the files
+        run: ls -la
+
       - name: Caching build folder
         uses: actions/cache@v2
         with:
-          path: build
+          path: ./build
           key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-
