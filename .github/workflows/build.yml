@@ -3,7 +3,7 @@ name: Build
 on: [push, pull_request_target]
 
 env:
-  IS_UPSTREAM: test
+  IS_UPSTREAM: 'test'
 
 jobs:
   build:
