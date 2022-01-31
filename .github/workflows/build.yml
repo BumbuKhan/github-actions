@@ -2,15 +2,15 @@ name: Build
 
 on: [push, pull_request_target]
 
-env:
-  IS_UPSTREAM: ${{ github.repository == 'BumbuKhan/github-actions' }}
+# env:
+#   IS_UPSTREAM: ${{ github.repository == 'BumbuKhan/github-actions' }}
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     # This job runs only on `BumbuKhan/github-actions` repository and will always be skipped on forks
-    if: ${{ env.IS_UPSTREAM == 'true' }}
+    if: ${{ github.repository == 'BumbuKhan/github-actions' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
