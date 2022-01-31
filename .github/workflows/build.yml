@@ -10,7 +10,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     # This job runs only on `BumbuKhan/github-actions` repository and will always be skipped on forks
-    if: env.IS_UPSTREAM == 'test'
+    if: ${{ github.ref == 'refs/heads/master' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
